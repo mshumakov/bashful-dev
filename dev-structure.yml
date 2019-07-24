@@ -20,7 +20,6 @@ tasks:
       tags:
           - check
           - sandbox-try
-          - sandbox-archive
 
 ###########
 # SANDBOX #

@@ -3,3 +3,9 @@
 
 # Tags
 tags
+
+# IDE
+.idea
+
+# Data (archives, box and sandbox)
+data
