@@ -1,0 +1,7 @@
+# config/common-config.yml
+
+config:
+  show-failure-report: false
+  show-summary-errors: true
+  max-parallel-commands: 6
+  show-task-times: true

@@ -1,0 +1,6 @@
+# config/common-dirs.yml
+
+- data
+- data/archives
+- data/sandbox
+- data/box

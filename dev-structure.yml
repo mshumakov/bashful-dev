@@ -1,0 +1,39 @@
+# dev-structure.yaml
+# see https://github.com/wagoodman/bashful
+
+$include: config/common-config.yml
+
+x-reference-data:
+  all-dirs: &dir-names
+    - $include config/common-dirs.yml
+
+tasks:
+
+###################
+# Check Structure #
+###################
+
+    - name: 'Check dir (create dir if need): <replace>'
+      cmd: '[ -e <replace> ] || mkdir <replace>'
+      ignore-failure: true
+      for-each: *dir-names
+      tags:
+          - check
+          - sandbox-try
+          - sandbox-archive
+
+###########
+# SANDBOX #
+###########
+
+    - name: Sandbox Try
+      cmd: '[ -e data/sandbox/$1 ] || mkdir data/sandbox/$1'
+      tags: sandbox-try
+
+    - name: Sandbox Archive
+      cmd: '[ -e data/sandbox/$1 ] && tar -cvjf data/archives/$(date -I)_sandbox_$1.tar.bz2 data/sandbox/$1 && rm -fr data/sandbox/$1'
+      tags: sandbox-archive
+
+    - name: Sandbox Archive All
+      cmd: '[ -e data/sandbox ] && tar -cvjf data/archives/$(date -I)_sandbox_all.tar.bz2 data/sandbox && rm -fr data/sandbox/*'
+      tags: sandbox-archive-all
