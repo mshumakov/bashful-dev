@@ -1,4 +1,4 @@
-# dev-structure.yaml
+# dev-structure.yml
 # see https://github.com/wagoodman/bashful
 
 $include: config/common-config.yml
