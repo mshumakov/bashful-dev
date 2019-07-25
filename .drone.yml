@@ -1,0 +1,19 @@
+kind: pipeline
+name: default
+
+platform:
+  os: linux
+  arch: arm
+
+steps:
+  - name: build
+    image: ubuntu:18.04
+    commands:
+      - apt update && apt install -y wget
+      - wget https://github.com/wagoodman/bashful/releases/download/v0.1.1/bashful_0.1.1_linux_amd64.deb
+      - dpkg -i bashful_0.1.1_linux_amd64.deb
+      - bashful --version
+    when:
+      event:
+        - push
+        - pull_request
