@@ -1,10 +1,6 @@
 kind: pipeline
 name: default
 
-platform:
-  os: linux
-  arch: arm
-
 steps:
   - name: build
     image: ubuntu:18.04
