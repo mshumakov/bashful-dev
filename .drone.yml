@@ -3,11 +3,8 @@ name: default
 
 steps:
   - name: install
-    image: ubuntu:18.04
+    image: karuppiah7890/bashful
     commands:
-      - apt update && apt install -y wget
-      - wget https://github.com/wagoodman/bashful/releases/download/v0.1.1/bashful_0.1.1_linux_amd64.deb
-      - dpkg -i bashful_0.1.1_linux_amd64.deb
       - bashful --version
       - make ARG=test01 sandbox-try && make ARG=test02 sandbox-try
       - make ARG=test01 sandbox-archive && [ -e data/archives/$(date -I)_sandbox_test01.tar.bz2 ] && echo 'OK'
