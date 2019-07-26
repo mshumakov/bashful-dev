@@ -16,10 +16,10 @@ help:
 	@echo ""
 
 sandbox-try:
-	@bashful run dev-structure.yml --tags sandbox-try ${ARG}
+	@bashful run dev.yml --tags sandbox-try ${ARG}
 
 sandbox-archive:
-	@bashful run dev-structure.yml --tags sandbox-archive ${ARG}
+	@bashful run dev.yml --tags sandbox-archive ${ARG}
 
 sandbox-archive-all:
-	@bashful run dev-structure.yml --tags sandbox-archive-all
+	@bashful run dev.yml --tags sandbox-archive-all
