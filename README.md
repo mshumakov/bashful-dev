@@ -6,7 +6,7 @@ This project is a configuration for the implementation of a common structure for
 
 ## Installation
 
-First install wagoodman/bashful >= 0.1.1.
+First install [wagoodman/bashful](https://github.com/wagoodman/bashful) >= 0.1.1.
 
 **Use for shell**:
 
