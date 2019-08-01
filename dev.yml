@@ -19,20 +19,28 @@ tasks:
       for-each: *dir-names
       tags:
           - check
-          - sandbox-try
+          - sandbox-create
 
 ###########
 # SANDBOX #
 ###########
 
-    - name: Sandbox Try
-      cmd: '[ -e data/sandbox/$1 ] || mkdir data/sandbox/$1'
-      tags: sandbox-try
+    - name: Sandbox Create
+      cmd: 'PATH_S=./data/sandbox/$1; [ -e ${PATH_S} ] || mkdir ${PATH_S}'
+      tags: sandbox-create
+
+    - name: Sandbox Delete
+      cmd: 'PATH_S=./data/sandbox/$1; [ -e ${PATH_S} ] && rm -fr ${PATH_S}'
+      tags: sandbox-delete
+
+    - name: Sandbox Delete All
+      cmd: 'PATH_S=./data/sandbox; [ -e ${PATH_S} ] && rm -fr ${PATH_S}/*'
+      tags: sandbox-delete-all
 
     - name: Sandbox Archive
-      cmd: '[ -e data/sandbox/$1 ] && tar -cvjf data/archives/$(date -I)_sandbox_$1.tar.bz2 data/sandbox/$1 && rm -fr data/sandbox/$1'
+      cmd: 'PATH_S=./data/sandbox/$1; [ -e ${PATH_S} ] && tar -cvjf data/archives/$(date -I)_sandbox_$1.tar.bz2 ${PATH_S}'
       tags: sandbox-archive
 
     - name: Sandbox Archive All
-      cmd: '[ -e data/sandbox ] && tar -cvjf data/archives/$(date -I)_sandbox_all.tar.bz2 data/sandbox && rm -fr data/sandbox/*'
+      cmd: 'PATH_S=./data/sandbox; [ -e ${PATH_S} ] && tar -cvjf data/archives/$(date -I)_sandbox_all.tar.bz2 ${PATH_S}/*'
       tags: sandbox-archive-all
