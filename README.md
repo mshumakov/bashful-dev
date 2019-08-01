@@ -8,7 +8,7 @@ This project is a configuration for the implementation of a common structure for
 
 First install wagoodman/bashful >= 0.1.1.
 
-Use for shell:
+**Use for shell**:
 
 ```shell script 
 [ -e ~/.dev ] || git clone https://github.com/mshumakov/bashful-dev --depth 1 ~/.dev
