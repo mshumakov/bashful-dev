@@ -5,9 +5,7 @@ steps:
   - name: install
     image: msdevlib/bashful-dev
     commands:
-      - make ARG=test01 sandbox-try && make ARG=test02 sandbox-try
-      - make ARG=test01 sandbox-archive && [ -e data/archives/$(date -I)_sandbox_test01.tar.bz2 ] && echo 'OK'
-      - make sandbox-archive-all && [ -e data/archives/$(date -I)_sandbox_all.tar.bz2 ] && echo 'OK'
+      - make test
     when:
       event:
         - push
