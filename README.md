@@ -33,5 +33,5 @@ Other commands:
  - sandbox-archive-all          Archiving all sandbox projects.
 
 Example:
-  make ARG=app-test01 sandbox-create
+  make check && make ARG=app-test01 sandbox-create
 ```
