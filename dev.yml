@@ -1,5 +1,4 @@
-# dev-structure.yml
-# see https://github.com/wagoodman/bashful
+# dev.yml, see https://github.com/wagoodman/bashful
 
 $include: config/common-config.yml
 
@@ -17,9 +16,7 @@ tasks:
       cmd: '[ -e <replace> ] || mkdir <replace>'
       ignore-failure: true
       for-each: *dir-names
-      tags:
-          - check
-          - sandbox-create
+      tags: check
 
 ###########
 # SANDBOX #
