@@ -35,6 +35,12 @@ sandbox-archive:
 sandbox-archive-all:
 	@bashful run dev.yml --tags sandbox-archive-all
 
+ps:
+	@`[ -e ./data ]` \
+	&& echo 'Sandbox list:' \
+	&& ls ./data/sandbox \
+	|| echo 'Data does not exist. \nUse: `make check`.'
+
 test:
 	@make check > /dev/null \
 	&& echo '-> Configuration of dev-structures: OK'
