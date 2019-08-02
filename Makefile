@@ -15,7 +15,7 @@ help:
 	@echo " - sandbox-archive-all          Archiving all sandbox projects."
 	@echo ""
 	@echo "Example:"
-	@echo "  make ARG="app-test01" sandbox-create"
+	@echo "  make check && make ARG=app-test01 sandbox-create"
 
 check:
 	@bashful run dev.yml --tags check
@@ -36,10 +36,23 @@ sandbox-archive-all:
 	@bashful run dev.yml --tags sandbox-archive-all
 
 test:
-	@make check
-	@make ARG=test01 sandbox-create && echo 'OK'
-	@make ARG=test02 sandbox-create && echo 'OK'
-	@make ARG=test01 sandbox-archive && [ -e data/archives/*_sandbox_test01.tar.bz2 ] && echo 'OK'
-	@make ARG=test01 sandbox-delete && echo 'OK'
-	@make sandbox-archive-all && [ -e data/archives/*_sandbox_all.tar.bz2 ] && echo 'OK'
-	@make sandbox-delete-all && echo 'OK'
+	@make check > /dev/null \
+	&& echo '-> Configuration of dev-structures: OK'
+
+	@make ARG=test01 sandbox-create > /dev/null \
+	&& make ARG=test02 sandbox-create > /dev/null \
+	&& echo '-> Creating a projects in the sandbox: OK'
+
+	@make ARG=test01 sandbox-archive > /dev/null \
+	&& [ -e data/archives/*_sandbox_test01.tar.bz2 ] \
+	&& echo '-> Sandbox project archiving: OK'
+
+	@make ARG=test01 sandbox-delete > /dev/null \
+	&& echo '-> Deleting a project in the sandbox: OK'
+
+	@make sandbox-archive-all > /dev/null \
+	&& [ -e data/archives/*_sandbox_all.tar.bz2 ] \
+	&& echo '-> Archiving all sandbox projects: OK'
+
+	@make sandbox-delete-all > /dev/null \
+	&& echo '-> Deleting all in the sandbox: OK'
