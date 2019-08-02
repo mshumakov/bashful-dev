@@ -3,7 +3,7 @@ name: default
 
 steps:
   - name: install
-    image: msdevlib/bashful-dev
+    image: msdevlib/bashful-dev:0.1.1
     commands:
       - make test
     when:
