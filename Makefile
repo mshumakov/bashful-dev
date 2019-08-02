@@ -43,23 +43,39 @@ ps:
 	|| echo 'Data does not exist. \nUse: `make check`.'
 
 test:
+	@make ps | grep 'Use: `make check`.' > /dev/null \
+	&& echo '-> Get a warning about missing `./data`.' \
+	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
+
 	@make check > /dev/null \
-	&& echo '-> Configuration of dev-structures: OK'
+	&& [ -e ./data ] \
+	&& echo '-> The structure will be created for work.' \
+	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
 
 	@make ARG=test01 sandbox-create > /dev/null \
 	&& make ARG=test02 sandbox-create > /dev/null \
-	&& echo '-> Creating a projects in the sandbox: OK'
+	&& [ -e ./data/sandbox/test01 ] \
+	&& echo '-> The project will be created in the sandbox.' \
+	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
+
+	@make ps | grep 'Sandbox list:' > /dev/null \
+	&& echo '-> Show project list in development environment.' \
+	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
 
 	@make ARG=test01 sandbox-archive > /dev/null \
 	&& [ -e data/archives/*_sandbox_test01.tar.bz2 ] \
-	&& echo '-> Sandbox project archiving: OK'
+	&& echo '-> This will create an archive for the project from the sandbox.' \
+	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
 
 	@make ARG=test01 sandbox-delete > /dev/null \
-	&& echo '-> Deleting a project in the sandbox: OK'
+	&& echo '-> Will remove the project from the sandbox.' \
+	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
 
 	@make sandbox-archive-all > /dev/null \
 	&& [ -e data/archives/*_sandbox_all.tar.bz2 ] \
-	&& echo '-> Archiving all sandbox projects: OK'
+	&& echo '-> Archive all projects in the sandbox.' \
+	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
 
 	@make sandbox-delete-all > /dev/null \
-	&& echo '-> Deleting all in the sandbox: OK'
+	&& echo '-> All projects will be removed from the sandbox.' \
+	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
