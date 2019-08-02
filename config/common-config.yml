@@ -5,4 +5,3 @@ config:
   show-summary-errors: true
   max-parallel-commands: 6
   show-task-times: true
-  single-line: true

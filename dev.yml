@@ -12,7 +12,7 @@ tasks:
 # Check Structure #
 ###################
 
-    - name: 'Check dir (create dir if need): <replace>'
+    - name: 'Check directory (create dir if need): <replace>'
       cmd: '[ -e <replace> ] || mkdir <replace>'
       ignore-failure: true
       for-each: *dir-names
@@ -22,22 +22,22 @@ tasks:
 # SANDBOX #
 ###########
 
-    - name: Sandbox Create
+    - name: Sandbox create
       cmd: 'PATH_S=./data/sandbox/$1; [ -e ${PATH_S} ] || mkdir ${PATH_S}'
       tags: sandbox-create
 
-    - name: Sandbox Delete
+    - name: Sandbox delete
       cmd: 'PATH_S=./data/sandbox/$1; [ -e ${PATH_S} ] && rm -fr ${PATH_S}'
       tags: sandbox-delete
 
-    - name: Sandbox Delete All
+    - name: Sandbox delete all
       cmd: 'PATH_S=./data/sandbox; [ -e ${PATH_S} ] && rm -fr ${PATH_S}/*'
       tags: sandbox-delete-all
 
-    - name: Sandbox Archive
+    - name: Sandbox archive
       cmd: 'PATH_S=./data/sandbox/$1; [ -e ${PATH_S} ] && tar -cvjf data/archives/$(date -I)_sandbox_$1.tar.bz2 ${PATH_S}'
       tags: sandbox-archive
 
-    - name: Sandbox Archive All
+    - name: Sandbox archive all
       cmd: 'PATH_S=./data/sandbox; [ -e ${PATH_S} ] && tar -cvjf data/archives/$(date -I)_sandbox_all.tar.bz2 ${PATH_S}/*'
       tags: sandbox-archive-all
