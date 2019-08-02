@@ -5,6 +5,7 @@ help:
 	@echo ""
 	@echo "Commands:"
 	@echo " - check                        Configuration of dev-structures."
+	@echo " - ps                           List of items in the sandbox."
 	@echo " - test                         Configuration testing."
 	@echo ""
 	@echo "Other commands:"

@@ -23,6 +23,7 @@ usage: make COMMAND
 
 Commands:
  - check                        Configuration of dev-structures.
+ - ps                           List of items in the sandbox.
  - test                         Configuration testing.
 
 Other commands:
