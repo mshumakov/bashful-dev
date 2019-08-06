@@ -17,7 +17,6 @@ First install [wagoodman/bashful](https://github.com/wagoodman/bashful) >= 0.1.1
 ## Getting Started
 
 ```shell script
-msdev at node-dev in ~/.dev/sandbox/bashful-dev on master [!]
 $ make
 usage: make COMMAND
 
