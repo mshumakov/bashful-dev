@@ -39,7 +39,7 @@ sandbox-archive-all:
 project-create:
 	@bashful run dev.yml --tags project-create ${ARG} \
 	&& echo 'Info: Add the project to the created structure for the project.' \
-	&& echo 'git clone git@github.com:user/project.git ./data/projects/name-project/app' \
+	&& echo 'git clone git@github.com:user/project.git ./data/projects/name-project/app'
 
 project-delete:
 	@bashful run dev.yml --tags project-delete ${ARG}
