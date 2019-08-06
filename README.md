@@ -27,11 +27,11 @@ Commands:
  - test                         Configuration testing.
 
 Other commands:
- - sandbox-create               Creating a project in the sandbox.
- - sandbox-delete               Deleting a project in the sandbox.
- - sandbox-delete-all           Deleting all in the sandbox.
- - sandbox-archive              Sandbox project archiving.
- - sandbox-archive-all          Archiving all sandbox projects.
+ - {sandbox, project}-create               Creating a project in the sandbox or projects.
+ - {sandbox, project}-delete               Deleting a project in the sandbox or projects.
+ - {sandbox, project}-archive              Project Archiving (sandbox or projects).
+ - sandbox-delete-all                      Deleting all in the sandbox.
+ - sandbox-archive-all                     Archiving all sandbox projects.
 
 Example:
   make check && make ARG=app-test01 sandbox-create
