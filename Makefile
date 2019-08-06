@@ -49,12 +49,17 @@ project-archive:
 	@bashful run dev.yml --tags project-archive ${ARG}
 
 ps:
-	@echo 'Sandbox list:' \
+	@echo '-- Archive list --' \
+	&& [ -e ./data/archives ] \
+	&& ls ./data/archives \
+	|| echo '-'
+
+	@echo '-- Sandbox list --' \
 	&& [ -e ./data/sandbox ] \
 	&& ls ./data/sandbox \
 	|| echo '-'
 
-	@echo 'Project list:' \
+	@echo '-- Project list --' \
 	&& [ -e ./data/projects ] \
 	&& ls ./data/projects \
 	|| echo '-'
@@ -63,7 +68,7 @@ update:
 	@git pull --rebase
 
 test:
-	@make ps | grep 'Sandbox list:' > /dev/null \
+	@make ps | grep 'Sandbox list' > /dev/null \
 	&& echo '-> Get a warning about missing `./data`.' \
 	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
 
@@ -78,7 +83,7 @@ test:
 	&& echo '-> The project will be created in the sandbox.' \
 	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
 
-	@make ps | grep 'Sandbox list:' > /dev/null \
+	@make ps | grep 'Sandbox list' > /dev/null \
 	&& echo '-> Show project list in development environment.' \
 	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
 
