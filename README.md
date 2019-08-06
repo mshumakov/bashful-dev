@@ -24,6 +24,7 @@ Commands:
  - check                                   Configuration of dev-structures.
  - ps                                      List of items in the sandbox.
  - test                                    Configuration testing.
+ - update                                  Update structure.
 
 Other commands:
  - {sandbox, project}-create               Creating a project in the sandbox or projects.
@@ -34,5 +35,4 @@ Other commands:
 
 Example:
   make check && make ARG=app-test01 sandbox-create
-
 ```

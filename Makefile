@@ -7,6 +7,7 @@ help:
 	@echo " - check                                   Configuration of dev-structures."
 	@echo " - ps                                      List of items in the sandbox."
 	@echo " - test                                    Configuration testing."
+	@echo " - update                                  Update structure."
 	@echo ""
 	@echo "Other commands:"
 	@echo " - {sandbox, project}-create               Creating a project in the sandbox or projects."
@@ -57,6 +58,9 @@ ps:
 	&& [ -e ./data/projects ] \
 	&& ls ./data/projects \
 	|| echo '-'
+
+update:
+	@git pull --rebase
 
 test:
 	@make ps | grep 'Sandbox list:' > /dev/null \
