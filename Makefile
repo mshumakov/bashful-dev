@@ -9,11 +9,11 @@ help:
 	@echo " - test                         Configuration testing."
 	@echo ""
 	@echo "Other commands:"
-	@echo " - sandbox-create               Creating a project in the sandbox."
-	@echo " - sandbox-delete               Deleting a project in the sandbox."
-	@echo " - sandbox-delete-all           Deleting all in the sandbox."
-	@echo " - sandbox-archive              Sandbox project archiving."
-	@echo " - sandbox-archive-all          Archiving all sandbox projects."
+	@echo " - {sandbox, project}-create               Creating a project in the sandbox or projects."
+	@echo " - {sandbox, project}-delete               Deleting a project in the sandbox or projects."
+	@echo " - {sandbox, project}-archive              Project Archiving (sandbox or projects)."
+	@echo " - sandbox-delete-all                      Deleting all in the sandbox."
+	@echo " - sandbox-archive-all                     Archiving all sandbox projects."
 	@echo ""
 	@echo "Example:"
 	@echo "  make check && make ARG=app-test01 sandbox-create"
@@ -36,14 +36,30 @@ sandbox-archive:
 sandbox-archive-all:
 	@bashful run dev.yml --tags sandbox-archive-all
 
+project-create:
+	@bashful run dev.yml --tags project-create ${ARG} \
+	&& echo 'Info: Add the project to the created structure for the project.' \
+	&& echo 'git clone git@github.com:user/project.git ./data/projects/name-project/app' \
+
+project-delete:
+	@bashful run dev.yml --tags project-delete ${ARG}
+
+project-archive:
+	@bashful run dev.yml --tags project-archive ${ARG}
+
 ps:
-	@`[ -e ./data ]` \
-	&& echo 'Sandbox list:' \
+	@echo 'Sandbox list:' \
+	&& [ -e ./data/sandbox ] \
 	&& ls ./data/sandbox \
-	|| echo 'Data does not exist. \nUse: `make check`.'
+	|| echo '-'
+
+	@echo 'Project list:' \
+	&& [ -e ./data/projects ] \
+	&& ls ./data/projects \
+	|| echo '-'
 
 test:
-	@make ps | grep 'Use: `make check`.' > /dev/null \
+	@make ps | grep 'Sandbox list:' > /dev/null \
 	&& echo '-> Get a warning about missing `./data`.' \
 	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
 
@@ -78,4 +94,19 @@ test:
 
 	@make sandbox-delete-all > /dev/null \
 	&& echo '-> All projects will be removed from the sandbox.' \
+	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
+
+	@make ARG=test01 project-create > /dev/null \
+	&& make ARG=test02 project-create > /dev/null \
+	&& [ -e ./data/projects/test01 ] \
+	&& echo '-> The project will be created in the projects.' \
+	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
+
+	@make ARG=test01 project-archive > /dev/null \
+	&& [ -e data/archives/*_project_test01.tar.bz2 ] \
+	&& echo '-> This will create an archive for the project from the projects.' \
+	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
+
+	@make ARG=test01 project-delete > /dev/null \
+	&& echo '-> Will remove the project from the projects.' \
 	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1

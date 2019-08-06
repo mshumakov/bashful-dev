@@ -41,3 +41,19 @@ tasks:
     - name: Sandbox archive all
       cmd: 'PATH_S=./data/sandbox; [ -e ${PATH_S} ] && tar -cvjf data/archives/$(date -I)_sandbox_all.tar.bz2 ${PATH_S}/*'
       tags: sandbox-archive-all
+
+############
+# PROJECTS #
+############
+
+    - name: Project create
+      cmd: 'PATH_P=./data/projects/$1; [ -e ${PATH_P} ] || mkdir -p ${PATH_P}/data ${PATH_P}/runtime ${PATH_P}/helper'
+      tags: project-create
+
+    - name: Project delete
+      cmd: 'PATH_P=./data/projects/$1; [ -e ${PATH_P} ] && rm -fr ${PATH_P}'
+      tags: project-delete
+
+    - name: Project archive
+      cmd: 'PATH_P=./data/projects/$1; [ -e ${PATH_P} ] && tar -cvjf data/archives/$(date -I)_project_$1.tar.bz2 ${PATH_P}'
+      tags: project-archive
