@@ -1,6 +1,6 @@
 # bashful-dev
 
-[![Build Status](https://github-ci.msdev-storage.com/api/badges/mshumakov/bashful-dev/status.svg)](https://github-ci.msdev-storage.com/mshumakov/bashful-dev)
+[![build](https://github.com/mshumakov/bashful-dev/workflows/build/badge.svg)](https://github.com/mshumakov/bashful-dev/actions)
 
 This project is a configuration for the implementation of a common structure for the needs of development using the https://github.com/wagoodman/bashful tool.
 
@@ -17,22 +17,28 @@ First install [wagoodman/bashful](https://github.com/wagoodman/bashful) >= 0.1.1
 ## Getting Started
 
 ```shell script
-$ make
-usage: make COMMAND
+usage: make [target]
 
-Commands:
- - check                                   Configuration of dev-structures.
- - ps                                      List of items in the sandbox.
- - test                                    Configuration testing.
- - update                                  Update structure.
+Other:
+  help                            Show this help.
 
-Other commands:
- - {sandbox, project}-create               Creating a project in the sandbox or projects.
- - {sandbox, project}-delete               Deleting a project in the sandbox or projects.
- - {sandbox, project}-archive              Project Archiving (sandbox or projects).
- - sandbox-delete-all                      Deleting all in the sandbox.
- - sandbox-archive-all                     Archiving all sandbox projects.
+Project:
+  project-create                  Creating a project.
+  project-delete                  Deleting a project.
+  project-archive                 Project archiving.
 
-Example:
-  make check && make ARG=app-test01 sandbox-create
+Sandbox:
+  sandbox-create                  Creating a project in the sandbox.
+  sandbox-delete                  Deleting a project in the sandbox.
+  sandbox-delete-all              Deleting all in the sandbox.
+  sandbox-archive                 Sandbox project archiving.
+  sandbox-archive-all             Archiving all sandbox projects.
+
+Test:
+  test                            Configuration testing.
+
+Utils:
+  check                           Configuration of dev-structures.
+  ps                              List of items in the sandbox.
+  update                          Update structure.
 ```
