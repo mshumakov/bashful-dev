@@ -1,0 +1,23 @@
+name: build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Go Action
+    - uses: actions-contrib/go@v0.1.0
+
+    - name: Install bashful.
+      run: go get github.com/wagoodman/bashful
+    
+    - name: Run tests
+      run: make test
