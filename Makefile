@@ -1,54 +1,71 @@
 # Makefile for project (git@github.com:mshumakov/bashful-dev.git)
 
-help:
-	@echo "usage: make COMMAND"
-	@echo ""
-	@echo "Commands:"
-	@echo " - check                                   Configuration of dev-structures."
-	@echo " - ps                                      List of items in the sandbox."
-	@echo " - test                                    Configuration testing."
-	@echo " - update                                  Update structure."
-	@echo ""
-	@echo "Other commands:"
-	@echo " - {sandbox, project}-create               Creating a project in the sandbox or projects."
-	@echo " - {sandbox, project}-delete               Deleting a project in the sandbox or projects."
-	@echo " - {sandbox, project}-archive              Project Archiving (sandbox or projects)."
-	@echo " - sandbox-delete-all                      Deleting all in the sandbox."
-	@echo " - sandbox-archive-all                     Archiving all sandbox projects."
-	@echo ""
-	@echo "Example:"
-	@echo "  make check && make ARG=app-test01 sandbox-create"
+.DEFAULT_GOAL := help
 
-check:
+#COLORS
+GREEN  := $(shell tput -Txterm setaf 2)
+WHITE  := $(shell tput -Txterm setaf 7)
+YELLOW := $(shell tput -Txterm setaf 3)
+RESET  := $(shell tput -Txterm sgr0)
+
+# Add the following 'help' target to your Makefile
+# And add help text after each target name starting with '\#\#'
+# A category can be added with @category
+HELP_FUN = \
+    %help; \
+    while(<>) { push @{$$help{$$2 // 'options'}}, [$$1, $$3] if /^([a-zA-Z\-]+)\s*:.*\#\#(?:@([a-zA-Z\-]+))?\s(.*)$$/ }; \
+    print "usage: make [target]\n\n"; \
+    for (sort keys %help) { \
+    print "${WHITE}$$_:${RESET}\n"; \
+    for (@{$$help{$$_}}) { \
+    $$sep = " " x (32 - length $$_->[0]); \
+    print "  ${YELLOW}$$_->[0]${RESET}$$sep${GREEN}$$_->[1]${RESET}\n"; \
+    }; \
+    print "\n"; }
+
+help: ##@Other Show this help.
+	@perl -e '$(HELP_FUN)' $(MAKEFILE_LIST)
+
+.PHONY: check
+check: ##@Utils Configuration of dev-structures.
 	@bashful run dev.yml --tags check
 
-sandbox-create:
+.PHONY: sandbox-create
+sandbox-create: ##@Sandbox Creating a project in the sandbox.
 	@bashful run dev.yml --tags sandbox-create ${ARG}
 
-sandbox-delete:
+.PHONY: sandbox-delete
+sandbox-delete: ##@Sandbox Deleting a project in the sandbox.
 	@bashful run dev.yml --tags sandbox-delete ${ARG}
 
-sandbox-delete-all:
+.PHONY: sandbox-delete-all
+sandbox-delete-all: ##@Sandbox Deleting all in the sandbox.
 	@bashful run dev.yml --tags sandbox-delete-all
 
-sandbox-archive:
+.PHONY: sandbox-archive
+sandbox-archive: ##@Sandbox Sandbox project archiving.
 	@bashful run dev.yml --tags sandbox-archive ${ARG}
 
-sandbox-archive-all:
+.PHONY: sandbox-archive-all
+sandbox-archive-all: ##@Sandbox Archiving all sandbox projects.
 	@bashful run dev.yml --tags sandbox-archive-all
 
-project-create:
+.PHONY: project-create
+project-create: ##@Project Creating a project.
 	@bashful run dev.yml --tags project-create ${ARG} \
 	&& echo 'Info: Add the project to the created structure for the project.' \
 	&& echo 'git clone git@github.com:user/project.git ./data/projects/name-project/app'
 
-project-delete:
+.PHONY: project-delete
+project-delete: ##@Project Deleting a project.
 	@bashful run dev.yml --tags project-delete ${ARG}
 
-project-archive:
+.PHONY: project-archive
+project-archive: ##@Project Project archiving.
 	@bashful run dev.yml --tags project-archive ${ARG}
 
-ps:
+.PHONY: ps
+ps: ##@Utils List of items in the sandbox.
 	@echo '-- Archive list --' \
 	&& [ -e ./data/archives ] \
 	&& ls ./data/archives \
@@ -64,10 +81,12 @@ ps:
 	&& ls ./data/projects \
 	|| echo '-'
 
-update:
+.PHONY: update
+update: ##@Utils Update structure.
 	@git pull --rebase
 
-test:
+.PHONY: test
+test: ##@Test Configuration testing.
 	@make ps | grep 'Sandbox list' > /dev/null \
 	&& echo '-> Get a warning about missing `./data`.' \
 	&& echo '.. OK' && exit 0 || echo '.. FAIL' && exit 1
