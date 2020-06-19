@@ -42,3 +42,9 @@ Utils:
   ps                              List of items in the sandbox.
   update                          Update structure.
 ```
+
+## Example
+
+```shell script
+$ make check && make ARG=app-test01 sandbox-create
+```
