@@ -12,12 +12,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-
-    - name: Go Action
-    - uses: actions-contrib/go@v0.1.0
-
+    - uses: actions/setup-go@v2
+      with:
+        go-version: '^1.13.1' # The Go version to download (if necessary) and use.
     - name: Install bashful.
       run: go get github.com/wagoodman/bashful
-    
+
     - name: Run tests
       run: make test
