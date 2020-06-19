@@ -14,8 +14,10 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Install bashful
-    - run: wget https://github.com/wagoodman/bashful/releases/download/v0.1.1/bashful_0.1.1_linux_amd64.deb
-    - run: apt install ./bashful_0.1.1_linux_amd64.deb
+      run: wget https://github.com/wagoodman/bashful/releases/download/v0.1.1/bashful_0.1.1_linux_amd64.deb
 
     - name: Run tests
-    - run: make test
+      run: apt install ./bashful_0.1.1_linux_amd64.deb
+
+    - name: Run tests
+      run: make test
